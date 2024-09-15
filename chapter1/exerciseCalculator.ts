@@ -16,21 +16,21 @@ interface ParsedArguments {
 }
 
 const parseArguments = (args: string[]): ParsedArguments => {
-    const numberList = []
-    if (args.length < 4) throw new Error('not enough arguments')
-    if (isNaN(Number(args[2]))) throw new Error('target is invalid')
+    const numberList = [];
+    if (args.length < 4) throw new Error('not enough arguments');
+    if (isNaN(Number(args[2]))) throw new Error('target is invalid');
     for (let i = 3; i < args.length; i++) {
-        if (isNaN(Number(args[i]))) throw new Error('Invalid input')
-            numberList.push(Number(args[i]))
+        if (isNaN(Number(args[i]))) throw new Error('Invalid input');
+            numberList.push(Number(args[i]));
     }
     return {
         target: Number(args[2]),
         dailyExercise: numberList
-    }
-}
+    };
+};
 
-const calculateExercises = (dailyExercise: number[], target: number): Result => {
-    const average = dailyExercise.reduce((sum, value) => sum + value,0) /dailyExercise.length
+export const calculateExercises = (dailyExercise: number[], target: number): Result => {
+    const average = dailyExercise.reduce((sum, value) => sum + value,0) /dailyExercise.length;
     return {
         periodLength: dailyExercise.length,
         trainingDays: dailyExercise.filter((hoursWorked) => hoursWorked > 0).length,
@@ -39,17 +39,19 @@ const calculateExercises = (dailyExercise: number[], target: number): Result => 
         ratingDescription: 'You can always work more!!!',
         target: target,
         average: average
-    }
-}
+    };
+};
 
     
     try {
-        const {target, dailyExercise} = parseArguments(process.argv)
-        console.log(calculateExercises(dailyExercise, target))
+        if (require.main === module) {
+        const {target, dailyExercise} = parseArguments(process.argv);
+        console.log(calculateExercises(dailyExercise, target));
+    }
     } catch (error: unknown) {
-        let errorMessage = 'Something went wrong. '
+        let errorMessage = 'Something went wrong. ';
         if (error instanceof Error) {
-            errorMessage += 'Error: ' + error.message
+            errorMessage += 'Error: ' + error.message;
         }
-        console.log(errorMessage)
+        console.log(errorMessage);
     }

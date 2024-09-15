@@ -11,39 +11,39 @@ const parseArguments = (args: string[]): inputValues => {
         return {
             height: Number(args[2]),
             weight: Number(args[3])
-        }
+        };
     } else {
-        throw new Error('Provided values were not numbers!')
+        throw new Error('Provided values were not numbers!');
     }
-}
+};
 
 const calculateBmi = (height: number, weight: number):string => {
-    let BMI = weight / ((height/100) ** 2)
+    const BMI = weight / ((height/100) ** 2);
     if (BMI < 18.5) {
-        return 'underweight'
+        return 'underweight';
     } else if (BMI < 24.9) {
-        return 'normal weight'
+        return 'normal weight';
     } else if (BMI < 29.9) {
-        return 'overweight'
+        return 'overweight';
     } else {
-        return 'obese'
+        return 'obese';
     } 
-}
+};
 
 
 
 try {
     if (require.main === module) {
     const {height, weight} = parseArguments(process.argv);
-    console.log(calculateBmi(height, weight))
+    console.log(calculateBmi(height, weight));
 }
 } catch (error: unknown) {
-    let errorMessage = 'Something went wrong. '
+    let errorMessage = 'Something went wrong. ';
     if (error instanceof Error) {
-        errorMessage += ' Error: ' + error.message
+        errorMessage += ' Error: ' + error.message;
     }
-    console.log(errorMessage)
+    console.log(errorMessage);
 }
 
 
-export default calculateBmi
+export default calculateBmi;
